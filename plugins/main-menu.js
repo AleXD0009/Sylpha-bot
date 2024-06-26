@@ -4,33 +4,31 @@ import fetch from 'node-fetch'
 import { xpRange } from '../lib/levelling.js'
 
 let tags = {
-  'main': 'INFO',
+  'main': '𝐈𝐍𝐅𝐎',
 }
 
 const defaultMenu = {
   before: `
-
-*I N F O  -  B O T*
-
-*🍬 Modo* : Público
-*📚 Baileys* : Multi Device
-*⏱ Tiempo Activo* : %muptime
-*👤 Usuarios* : %totalreg
-
+*╭─────「 𝐈𝐍𝐅𝐎 𝐁𝐎𝐓 」─────*
+│ *⚙ Modo* : Público
+│ *📚 Baileys* : Multi Device
+│ *⏱ Tiempo Activo* : %muptime
+│ *👤 Usuarios* : %totalreg
+*╰────────────────────*
 %readmore
-*I N F O  -  U S E R*
-
-*Nombre* : %name
-*Monedas de oro* : %limit
-*📈 Nivel* : %level
-*💫 XP* : %totalexp
+*╭─────「 𝐈𝐍𝐅𝐎 𝐔𝐒𝐄𝐑 」─────*
+│ *Nombre* : %name
+│ *coins* : %limit
+│ *📈 Nivel* : %level
+│ *💫 XP* : %totalexp
+*╰────────────────────*
 %readmore
 
-\t\t\t*L I S T A  -  M E N Ú S*
+\t\t\t*C O M A N D O S*
 `.trimStart(),
-  header: '╭───═[ `MENÚ メ %category` ]═────⋆\n│╭───────────────···',
-  body: '✩│%cmd %islimit %isPremium\n',
-  footer: '│╰────────────────···\n╰───────────═┅═──────────\n',
+  header: '*`╭─────「 %category 」─────`*', 
+  body: '*`│`* %cmd %islimit %isPremium\n',
+  footer: '*`╰────────────────────`*\n',
   after: ``,
 }
 
@@ -131,11 +129,13 @@ let handler = async (m, { conn, usedPrefix: _p, __dirname }) => {
       readmore: readMore
     }
     text = text.replace(new RegExp(`%(${Object.keys(replace).sort((a, b) => b.length - a.length).join`|`})`, 'g'), (_, name) => '' + replace[name])
-    
+
+
+let pp = `https://telegra.ph/file/666f347726644b3f59504.mp4`
     await m.react('💙')
-    await conn.sendMessage(m.chat, { video: { url: [xd ].getRandom() }, gifPlayback: true, caption: text.trim(), mentions: [m.sender] }, { quoted: estilo })
-   // await conn.sendFile(m.chat, img, 'thumbnail.jpg', text.trim(), m, null, rcanal)
-   //await conn.sendSP(m.chat, botname, textbot, text.trim(), img, img, canal, estilo)
+    await conn.sendMessage(m.chat, { video: { url: [ pp ].getRandom() }, gifPlayback: true, caption: text.trim(), mentions: [m.sender] }, { quoted: m })
+   //await conn.sendFile(m.chat, img, 'thumbnail.jpg', text.trim(), m, null, rcanal)
+   //await conn.sendSP(m.chat, botname, null, text.trim(), img, img, null, m)
 
   } catch (e) {
     conn.reply(m.chat, '❎ Lo sentimos, el menú tiene un error.', m)
