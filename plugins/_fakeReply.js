@@ -1,7 +1,6 @@
 import fetch from 'node-fetch'
 
 export async function before(m, { conn }) {
-let img = await (await fetch(`https://tinyurl.com/2c5hk765`)).buffer()
 
  global.rcanal = {
     contextInfo: {
@@ -14,23 +13,23 @@ let img = await (await fetch(`https://tinyurl.com/2c5hk765`)).buffer()
     },
   }
 
- global.adReply = {
+/* global.adReply = {
 	    contextInfo: { 
              forwardingScore: 9999, 
                  isForwarded: false, 
                     externalAdReply: {
 				    showAdAttribution: true,
 					title: botname,
-					body: textbot,
+					body: null,
 					mediaUrl: null,
 					description: null,
 					previewType: "PHOTO",
 					thumbnailUrl: img,
                     thumbnail: img,
-		           sourceUrl: canal,
+		           sourceUrl: null,
 		           mediaType: 1,
                    renderLargerThumbnail: true
 				}
 			}
-		}
+		}*/
 }
