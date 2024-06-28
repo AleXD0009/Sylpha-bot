@@ -5,6 +5,7 @@ import { xpRange } from '../lib/levelling.js'
 
 let tags = {
   'main': '𝐈𝐍𝐅𝐎',
+  'search': '𝐒𝐄𝐀𝐑𝐂𝐇',
 }
 
 const defaultMenu = {
