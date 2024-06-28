@@ -1,7 +1,7 @@
 {
   "name": "sylpha-bot",
   "version": "1.0.0",
-  "description": "Simple WhatsApp Bot Multi Device",
+  "description": "WhatsApp Bot Multi Device",
   "main": "index.js",
   "type": "module",
   "directories": {
