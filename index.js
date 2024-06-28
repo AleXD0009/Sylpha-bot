@@ -31,10 +31,10 @@ figlet('SYLPHA-BOT', {
     return;
   }
   console.log(chalk.green(data));
-  console.log(chalk.yellow('✯ Iniciando ✯'));
+  console.log(chalk.yellow('I N I C I A N D O...'));
 });
 
-figlet('Created by Alex', {
+figlet('Creado Por JTxs', {
   font: 'Standard',
   horizontalLayout: 'default',
   verticalLayout: 'default'
