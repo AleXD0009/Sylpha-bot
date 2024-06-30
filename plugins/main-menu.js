@@ -6,7 +6,7 @@ import { xpRange } from '../lib/levelling.js'
 let tags = {
   'main': '𝐈𝐍𝐅𝐎',
   'search': '𝐒𝐄𝐀𝐑𝐂𝐇',
-  'tools': '𝐇𝐄𝐑𝐑𝐀𝐌𝐈𝐄𝐍𝐓𝐀𝐒',
+  'tools': '𝐓𝐎𝐎𝐋𝐒',
   'sticker': '𝐒𝐓𝐈𝐂𝐊𝐄𝐑𝐒',
   'owner': '𝐂𝐑𝐄𝐀𝐃𝐎𝐑',
 }
