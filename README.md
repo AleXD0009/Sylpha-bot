@@ -49,10 +49,6 @@ Para nuevos desde cero en termux.apk:
 ## 𝘿𝘼𝙍 𝙄𝙉𝙄𝘾𝙄𝙊 𝘿𝙀 𝙄𝙉𝙎𝙏𝘼𝙇𝘼𝘾𝙄𝙊𝙉 𝙔 𝙇𝙐𝙀𝙂𝙊 𝙐𝙎𝘼𝙍𝙇𝙊
 ```bash
 > git clone https://github.com/AleXD0009/Sylpha-bot
-> cd SumiWaBot-MD 
-> yarn
+> cd Sylpha-bot 
 > npm start
 
-Para detener al bot en termux:
-> Ctrl+c
-```
