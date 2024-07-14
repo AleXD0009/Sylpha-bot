@@ -1,31 +1,66 @@
-import { snapsave } from '@bochilteam/scraper';
+import fetch from 'node-fetch';
 
 let handler = async (m, { conn, args, usedPrefix, command }) => {
-    if (!args || args.length === 0) {
-        return conn.reply(m.chat, '*`Ingresa un link de facebook`*', m);
-    }
+    if (command === 'fb') {
+        if (!args[0]) return m.reply('*`Ingresa un enlace de Facebook`*');
 
-    try {
-        const link = args[0];
-        const data = await snapsave(link);
-        
-        if (!data) {
-            return conn.reply(m.chat, 'No se encontró ningún video para ese enlace.', m);
+        try {
+            const apiResponse = await fetch(`https://thepapusapifacebook.onrender.com/api/fbvideodownload?url=${args[0]}`);
+            const responseData = await apiResponse.json();
+
+            if (responseData.success) {
+                const { title, src_url, links } = responseData;
+
+                let listSections = [];
+                links.forEach((linkObj, index) => {
+                    let qualityHeader = `Calidad ${index + 1}`;
+                    listSections.push({
+                        title: '',
+                        rows: [
+                            {
+                                header: qualityHeader,
+                                title: `Descargar ${linkObj.quality}`,
+                                description: `Tamaño: ${linkObj.link}`,
+                                id: `${usedPrefix}${index + 1} ${args[0]}`
+                            }
+                        ]
+                    });
+                });
+
+                await conn.sendList(m.chat, '  ≡ *Opciones de Descarga*', '', 'Click Aquí', null, listSections, m);
+
+            } else {
+            }
+        } catch {
         }
+    } else if (['1', '2', '3', '4', '5'].includes(command)) { 
+        try {
+            const apiResponse = await fetch(`https://thepapusapifacebook.onrender.com/api/fbvideodownload?url=${args[0]}`);
+            const responseData = await apiResponse.json();
 
-        const { title, SD, HD } = data;
+            if (responseData.success) {
+                const { title, src_url, links } = responseData;
 
-        if (!SD && !HD) {
-            return conn.reply(m.chat, 'No se encontró ningún enlace de descarga válido para ese video.', m);
+                let selectedQuality = parseInt(command) - 1; 
+
+                const selectedLink = links[selectedQuality];
+
+                let txt = '`Facebook Video - Download`\n\n';
+                txt += `⸙͎ *Título ∙* ${title}\n`;
+                txt += `⸙͎ *URL Original ∙* ${src_url}\n\n`;
+
+                txt += '*Enlace de descarga seleccionado:*\n';
+                txt += `Calidad: ${selectedLink.quality}\nLink: ${selectedLink.link}\n\n`;
+
+                await conn.sendMessage(m.chat, txt, { quoted: m });
+            } else {
+            }
+        } catch {
         }
-      
-        await conn.sendFile(m.chat, SD || HD, 'fbdl.mp4', `> *Título*: ${title}`, m, null, rcanal);
-    } catch {
     }
 };
 
-handler.help = ['facebook *<link>*'];
+handler.help = ['fb *<link>*'];
 handler.tags = ['dl'];
-handler.command = /^(facebook|fb|facebookdl|fbdl)$/i;
-
+handler.command = ['fb'];
 export default handler;
