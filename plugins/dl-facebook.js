@@ -18,27 +18,27 @@ let handler = async (m, { conn, args, usedPrefix, command }) => {
           title: '≡ Calidades',
           rows: [
             {
-              header: '360p',
-              title: '',
+              header: '',
+              title: '360p',
               description: '',
               id: `${usedPrefix}a ${args[0]}`
             },
             {
-              header: '560p',
-              title: '',
+              header: '',
+              title: '560p',
               description: '',
               id: `${usedPrefix}b ${args[0]}`
             },
             {
-              header: '720p',
-              title: '',
+              header: '',
+              title: '720p',
               description: '',
               id: `${usedPrefix}c ${args[0]}`
             }
           ]
         });
 
-        await conn.sendList(m.chat, 'Facebook Downloader', `Descarga el video de "${title}"`, 'Haz clic aquí', null, listSections, m);
+        await conn.sendList(m.chat, 'Facebook Downloader', `"${title}"`, 'Haz clic aquí', null, listSections, m);
 
         let txt = '    `Facebook downloader`\n\n';
         txt += `> *Titulo* : _${title}_\n`;
