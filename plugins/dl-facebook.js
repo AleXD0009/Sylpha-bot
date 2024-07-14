@@ -13,33 +13,6 @@ let handler = async (m, { conn, args, usedPrefix, command }) => {
       if (responseData.success) {
         const { title, links } = responseData;
 
-        let listSections = [];
-        listSections.push({
-          title: '≡ Calidades',
-          rows: [
-            {
-              header: '',
-              title: '360p',
-              description: '',
-              id: `${usedPrefix}a ${args[0]}`
-            },
-            {
-              header: '',
-              title: '560p',
-              description: '',
-              id: `${usedPrefix}b ${args[0]}`
-            },
-            {
-              header: '',
-              title: '720p',
-              description: '',
-              id: `${usedPrefix}c ${args[0]}`
-            }
-          ]
-        });
-
-        await conn.sendList(m.chat, 'Facebook Downloader', `"${title}"`, 'Haz clic aquí', null, listSections, m);
-
         let txt = '    `Facebook downloader`\n\n';
         txt += `> *Titulo* : _${title}_\n`;
 
@@ -56,24 +29,52 @@ let handler = async (m, { conn, args, usedPrefix, command }) => {
         }
 
         if (mediaUrl) {
+          await m.react('✅'); 
           await conn.sendMessage(m.chat, { video: { url: mediaUrl }, caption: txt }, { quoted: m });
-          await m.react('✅');
         } else {
-          await m.react('❌');
+          await m.react('❌'); 
         }
+      } else {
+        await m.reply('No se pudo obtener el video desde el enlace proporcionado.');
+      }
+
+    } catch (error) {
+      await m.react('❌'); 
+    }
+  } else if (['a', 'b', 'c'].includes(command)) {
+    try {
+      const apiResponse = await fetch(`https://thepapusapifacebook.onrender.com/api/fbvideodownload?url=${args[0]}`);
+      const responseData = await apiResponse.json();
+
+      if (responseData.success) {
+        const { title, links } = responseData;
+
+        let txt = '    `Facebook downloader`\n\n';
+        txt += `> *Titulo* : _${title}_\n`;
+
+        let mediaUrl;
+          if (command === 'a') {
+            mediaUrl = links.find(link => link.quality === 'sd_0')?.link;
+          } else if (command === 'b') {
+            mediaUrl = links.find(link => link.quality === 'hd_0')?.link;
+          } else if (command === 'd') {
+            mediaUrl = links.find(link => link.quality === 'render_720p_0')?.link;
+        }
+
+        await conn.sendMessage(m.chat, { video: { url: mediaUrl }, caption: txt }, { quoted: m });
       } else {
       }
 
     } catch {
-      await m.react('❌');
     }
   }
 }
 
-handler.help = ['facebook *<link>*'];
-handler.tags = ['downloader'];
-handler.command = ['facebook', 'a', 'b', 'c'];
-export default handler;
+handler.help = ['facebook *<link>*']
+handler.tags = ['dl']
+handler.command = ['facebook', 'a', 'b', 'd']
+
+export default handler
 
 
 /*import fetch from 'node-fetch';
