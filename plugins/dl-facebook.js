@@ -25,11 +25,3 @@ handler.help = ['facebook *<link>*'];
 handler.tags = ['downloader'];
 handler.command = ['fb', 'facebook'];
 export default handler
-
-
-                    mediaUrl = links.sd_0.link;
-                    txt += `Calidad Normal`;
-                } else if (command === 'b') {
-                    mediaUrl = links.hd_0.link;
-                    txt += `Calidad HD`;
-                }
