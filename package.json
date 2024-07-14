@@ -42,6 +42,7 @@
     "acrcloud": "^1.4.0",
     "api-dylux": "^1.7.2",
     "aptoide-scraper": "^1.0.1",
+    "@ruhend/scraper": "*",
     "awesome-phonenumber": "^3.4.0",
     "axios": "^1.1.2",
     "cfonts": "^3.1.1",
