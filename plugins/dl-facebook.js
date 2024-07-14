@@ -4,7 +4,7 @@ let handler = async (m, { conn, args, usedPrefix, command }) => {
   if (!args[0]) return m.reply('*`Ingresa un enlace de facebook`*');
 
   try {
-    const apiResponse = await fetch(`https://delirius-api-oficial.vercel.app/api/tiktok?url=${args[0]}`);
+    const apiResponse = await fetch(`https://thepapusapifacebook.onrender.com/api/fbvideodownload?url=${args[0]}`);
     const responseData = await apiResponse.json();
     
     if (responseData.success) {
