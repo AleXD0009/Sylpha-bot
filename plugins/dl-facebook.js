@@ -1,66 +1,74 @@
 import fetch from 'node-fetch';
 
 let handler = async (m, { conn, args, usedPrefix, command }) => {
-    if (command === 'fb') {
-        if (!args[0]) return m.reply('*`Ingresa un enlace de Facebook`*');
+    if (command === 'facebook') {
+        if (!args[0]) return m.reply('*`Ingresa un enlace de facebook`*');
 
         try {
             const apiResponse = await fetch(`https://thepapusapifacebook.onrender.com/api/fbvideodownload?url=${args[0]}`);
             const responseData = await apiResponse.json();
 
-            if (responseData.success) {
-                const { title, src_url, links } = responseData;
+            if (responseData.status) {
+                const { data } = responseData;
+                const { title, links } = data;
 
                 let listSections = [];
-                links.forEach((linkObj, index) => {
-                    let qualityHeader = `Calidad ${index + 1}`;
-                    listSections.push({
-                        title: '',
-                        rows: [
-                            {
-                                header: qualityHeader,
-                                title: `Descargar ${linkObj.quality}`,
-                                description: `Tamaño: ${linkObj.link}`,
-                                id: `${usedPrefix}${index + 1} ${args[0]}`
-                            }
-                        ]
-                    });
+                listSections.push({
+                    title: `Descargar Video TikTok: ${title}`,
+                    rows: [
+                        {
+                            header: 'VIDEO CALIDAD NORMAL',
+                            title: ` *${links.sd_0.size}*`,
+                            description: ``,
+                            id: `${usedPrefix}a ${args[0]}`
+                        },
+                        {
+                            header: 'VIDEO CALIDAD HD',
+                            title: ` *${links.hd_0.size}*`,
+                            description: ``,
+                            id: `${usedPrefix}b ${args[0]}`
+                        }
+                    ]
                 });
 
-                await conn.sendList(m.chat, '  ≡ *Opciones de Descarga*', '', 'Click Aquí', null, listSections, m);
+                await conn.sendList(m.chat, '  ≡ *Calidades*', ``, `Click Aqui`, null, listSections, m);
 
             } else {
             }
         } catch {
         }
-    } else if (['1', '2', '3', '4', '5'].includes(command)) { 
+    } else if (['a', 'b'].includes(command)) {
         try {
             const apiResponse = await fetch(`https://thepapusapifacebook.onrender.com/api/fbvideodownload?url=${args[0]}`);
             const responseData = await apiResponse.json();
 
-            if (responseData.success) {
-                const { title, src_url, links } = responseData;
+            if (responseData.status) {
+                const { data } = responseData;
+                const { title, links } = data;
 
-                let selectedQuality = parseInt(command) - 1; 
+                let txt = `Descarga de video: ${title}\n\n`;
 
-                const selectedLink = links[selectedQuality];
+                let mediaUrl;
+                if (command === 'a') {
+                    mediaUrl = links.sd_0.link;
+                    txt += `Calidad Normal`;
+                } else if (command === 'b') {
+                    mediaUrl = links.hd_0.link;
+                    txt += `Calidad HD`;
+                }
 
-                let txt = '`Facebook Video - Download`\n\n';
-                txt += `⸙͎ *Título ∙* ${title}\n`;
-                txt += `⸙͎ *URL Original ∙* ${src_url}\n\n`;
-
-                txt += '*Enlace de descarga seleccionado:*\n';
-                txt += `Calidad: ${selectedLink.quality}\nLink: ${selectedLink.link}\n\n`;
-
-                await conn.sendMessage(m.chat, txt, { quoted: m });
+                await conn.sendFile(m.chat, mediaUrl, 'video.mp4', txt, m);
             } else {
+                m.reply('No se pudo obtener el video de TikTok.');
             }
-        } catch {
+        } catch (error) {
+            console.error(error);
+            m.reply('Ocurrió un error al intentar descargar el video de TikTok.');
         }
     }
 };
 
-handler.help = ['fb *<link>*'];
+handler.help = ['facebook *<enlace>*'];
 handler.tags = ['dl'];
-handler.command = ['fb'];
+handler.command = ['facebook', 'a', 'b'];
 export default handler;
