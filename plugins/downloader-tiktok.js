@@ -41,8 +41,5 @@ await m.react('🕓');
 handler.help = ['tiktok *<link>*']
 handler.tags = ['dl'] 
 handler.command = /^(tiktok|ttdl|tiktokdl|tiktoknowm)$/i;
-handler.customPrefix = /^(https:\/\/tiktok/gi)$/i;
-handler.command = new RegExp
-
 
 export default handler;
