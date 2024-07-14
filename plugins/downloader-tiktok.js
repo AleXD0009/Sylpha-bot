@@ -38,6 +38,8 @@ await m.react('🕓');
     }
 };
 
+handler.help = ['tiktok *<link>*']
+handler.tags = ['dl'] 
 handler.command = /^(tiktok|ttdl|tiktokdl|tiktoknowm)$/i;
 
 export default handler;
