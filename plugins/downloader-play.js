@@ -1,18 +1,17 @@
 import yts from 'yt-search';
 import { youtubedl, youtubedlv2 } from '@bochilteam/scraper';
-import fg from 'api-dylux';
 
 const limit = 100;
 
-let handler = async (m, { conn, command, text, args, usedPrefix }) => {
+let handler = async (m, { conn, command, args, usedPrefix }) => {
     try {
         if (command === 'play' || command === 'play2') {
-            if (!text) {
+            if (!args || !args[0]) {
                 return conn.reply(m.chat, '*Ingresa el nombre de lo que quieres buscar*', m);
             }
 
             await m.react('🕓');
-            let res = await yts(text);
+            let res = await yts(args.join(' '));
             let play = res.videos[0];
 
             if (!play) {
@@ -51,6 +50,11 @@ let handler = async (m, { conn, command, text, args, usedPrefix }) => {
             try {
                 let v = args[0];
                 let yt = await youtubedl(v).catch(async () => await youtubedlv2(v));
+
+                if (!yt || !yt.audio || !yt.audio[q]) {
+                    throw `Error: No se pudo obtener la información del audio`;
+                }
+
                 let dl_url = await yt.audio[q].download();
                 let title = await yt.title;
                 let size = await yt.audio[q].fileSizeH;
