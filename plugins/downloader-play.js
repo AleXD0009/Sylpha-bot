@@ -1,8 +1,8 @@
 import fg from 'api-dylux'
 import yts from 'yt-search'
 import { youtubedl, youtubedlv2 } from '@bochilteam/scraper'
-import fetch from 'node-fetch' 
 let limit = 100
+
 let handler = async (m, { conn, command, text, usedPrefix }) => {
     if (command === 'play' || command === 'play2') {
         if (!text) {
@@ -74,10 +74,10 @@ await conn.sendMessage(m.chat, { audio: { url: dl_url }, fileName: title + '.mp3
 await m.react('✅')
 } catch {
 await m.react('❌')
-}}}};
-
+}}}}
+}
 handler.help = ['play', 'play2', 'ytmp3'];
 handler.tags = ['dl'];
-handler.command = ['play', 'play2', 'ytmp3'];
+handler.command = ['play','play2','ytmp3'];
 
 export default handler
