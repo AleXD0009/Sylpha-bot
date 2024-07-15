@@ -30,8 +30,8 @@ const defaultMenu = {
 %readmore
 \t\t\t
 `.trimStart(),
-  header: '┌─ *「 `%category` 」*\n', 
-  body: '> %cmd %islimit %isPremium\n',
+  header: '┌─ 「  *`%category`*  」', 
+  body: '%cmd %islimit %isPremium\n',
   footer: '╰─────────────',
   after: ``,
 }
