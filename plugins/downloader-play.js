@@ -1,17 +1,18 @@
 import yts from 'yt-search';
 import { youtubedl, youtubedlv2 } from '@bochilteam/scraper';
+import fetch from 'node-fetch';
 
 const limit = 100;
 
-let handler = async (m, { conn, command, args, usedPrefix }) => {
+let handler = async (m, { conn, command, args, text, usedPrefix }) => {
     try {
         if (command === 'play' || command === 'play2') {
-            if (!args || !args[0]) {
+            if (!text) {
                 return conn.reply(m.chat, '*Ingresa el nombre de lo que quieres buscar*', m);
             }
 
             await m.react('🕓');
-            let res = await yts(args.join(' '));
+            let res = await yts(text);
             let play = res.videos[0];
 
             if (!play) {
@@ -31,7 +32,6 @@ let handler = async (m, { conn, command, args, usedPrefix }) => {
                 ['Audio', `${usedPrefix}ytmp3 ${url}`],
                 ['Video', `${usedPrefix}ytmp4 ${url}`]
             ], null, [['Canal', 'Nombre del canal']], m);
-            
             await m.react('✅');
         }
 
@@ -60,10 +60,18 @@ let handler = async (m, { conn, command, args, usedPrefix }) => {
                 let size = await yt.audio[q].fileSizeH;
                 let thumbnail = await yt.thumbnail;
 
+                let img = await (await fetch(thumbnail)).buffer();
                 if (size.split('MB')[0] >= limit) {
                     return conn.reply(m.chat, `El archivo pesa más de ${limit} MB, se canceló la descarga.`, m);
                 }
 
+                let txt = '`Youtube - Download`\n\n';
+                txt += `*Titulo* : ${title}\n`;
+                txt += `*Calidad* : ${q}\n`;
+                txt += `*Tamaño* : ${size}\n\n`;
+                txt += `> *- ↻ El audio se está enviando, espera un momento, soy lenta...*`;
+
+                await conn.sendFile(m.chat, img, 'thumbnail.jpg', txt, m, null, { mimetype: 'image/jpeg' });
                 await conn.sendMessage(m.chat, { audio: { url: dl_url }, fileName: title + '.mp3', mimetype: 'audio/mp3' }, { quoted: m });
                 await m.react('✅');
             } catch (error) {
@@ -80,5 +88,6 @@ let handler = async (m, { conn, command, args, usedPrefix }) => {
 handler.help = ['play', 'play2', 'ytmp3'];
 handler.tags = ['dl'];
 handler.command = ['play', 'play2', 'ytmp3'];
+handler.register = true;
 
 export default handler;
