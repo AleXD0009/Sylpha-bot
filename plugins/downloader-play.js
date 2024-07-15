@@ -74,7 +74,7 @@ await conn.sendMessage(m.chat, { audio: { url: dl_url }, fileName: title + '.mp3
 await m.react('✅')
 } catch {
 await m.react('❌')
-}}}}}};
+}}}};
 
 handler.help = ['play', 'play2', 'ytmp3'];
 handler.tags = ['dl'];
