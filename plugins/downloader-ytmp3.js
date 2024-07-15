@@ -1,4 +1,3 @@
-
 import ytdl from 'ytdl-core'
 import fs from 'fs'
 import { pipeline } from 'stream'
@@ -6,6 +5,7 @@ import { promisify } from 'util'
 import os from 'os'
 import fg from 'api-dylux'
 import fetch from 'node-fetch'
+
 let handler = async (m, { conn, text, args, isPrems, isOwner, usedPrefix, command }) => {
   if (!args || !args[0]) return conn.reply(m.chat, `✳️ Example :\n${usedPrefix + command} https://youtu.be/YzkTFFwxtXI`, m)
   if (!args[0].match(/youtu/gi)) throw ``
@@ -19,8 +19,7 @@ let handler = async (m, { conn, text, args, isPrems, isOwner, usedPrefix, comman
 		
 		conn.sendFile(m.chat, dl_url, title + '.mp3', `
   ${title}  ${size}
-`.trim(), m, false, { mimetype: 'audio/mpeg', asDocument: chat.useDocument })
-		m.react(done)
+`.trim(), m, false, { mimetype: 'audio/mpeg', asDocument: false })
  	} catch {
   try {
   	
@@ -28,8 +27,7 @@ let handler = async (m, { conn, text, args, isPrems, isOwner, usedPrefix, comman
   
 		conn.sendFile(m.chat, dl_url, title + '.mp3', `
  ≡  *YTDL 2** : ${title}
-`.trim(), m, false, { mimetype: 'audio/mpeg', asDocument: chat.useDocument })
-		m.react(done)
+`.trim(), m, false, { mimetype: 'audio/mpeg', asDocument: false })
         } catch {
 			await m.reply(`❎`)
 } 
