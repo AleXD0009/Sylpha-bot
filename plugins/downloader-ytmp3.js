@@ -1,81 +1,34 @@
-import fetch from "node-fetch"
-import ytdl from "ytdl-core"
+import { youtubedl, youtubedlv2 } from '@bochilteam/scraper';
 
-let handler = async (m, {
-    conn,
-    args
-}) => {
-    if (!args[0]) throw "[ Masukkan Url Youtube! ]"
-    try {
+let handler = async (m, { conn, text, args, isPrems, isOwner, usedPrefix, command }) => {
+  if (!args || !args[0]) throw `✳️ Example :\n${usedPrefix + command} https://youtu.be/YzkTFFwxtXI`;
+  if (!args[0].match(/youtu/gi)) throw `❎ Verify that it is a YouTube link.`;
 
-        let Ytdl = await ytmp3(args[0])
-        let dls = "Download audio succes ( V1 )"
-        let ytthumb = await (await conn.getFile(Ytdl.meta.image)).data
-        let doc = {
-            audio: Ytdl.buffer,
-            mimetype: "audio/mp4",
-            fileName: Ytdl.meta.title,
-            contextInfo: {
-                externalAdReply: {
-                    showAdAttribution: true,
-                    mediaType: 2,
-                    mediaUrl: args[0],
-                    title: Ytdl.meta.title,
-                    body: dls,
-                    sourceUrl: args[0],
-                    thumbnail: ytthumb
-                }
-            }
-        }
 
-        await conn.sendMessage(m.chat, doc, {
-            quoted: m
-        })
+  try {
+    let q = '128kbps'; 
+    let v = args[0]; 
+    const yt = await youtubedl(v).catch(async () => await youtubedlv2(v)); 
+    const dl_url = await yt.audio[q].download(); 
+    const title = await yt.title; 
 
-            } catch {
-            }
-        }
-handler.command = /^y((outube|tb)audio|(outube|tb?)mp3|utubaudio|taudio|ta)$/i
+    conn.sendFile(
+      m.chat,
+      dl_url,
+      title + '.mp3',
+      null, 
+      m,
+      false,
+      { mimetype: 'audio/mpeg' }
+    );
+
+  } catch {
+    await m.reply(`❎ Error: Could not download the audio.`)
+  }
+};
+
+handler.help = ['ytmp3 <url>']
+handler.tags = ['downloader']
+handler.command = ['ytmp3', 'yta'] 
 
 export default handler
-
-async function ytmp3(url) {
-    try {
-        const {
-            videoDetails
-        } = await ytdl.getInfo(url, {
-            lang: "id"
-        });
-
-        const stream = ytdl(url, {
-            filter: "audioonly",
-            quality: 140
-        });
-        const chunks = [];
-
-        stream.on("data", (chunk) => {
-            chunks.push(chunk);
-        });
-
-        await new Promise((resolve, reject) => {
-            stream.on("end", resolve);
-            stream.on("error", reject);
-        });
-
-        const buffer = Buffer.concat(chunks);
-
-        return {
-            meta: {
-                title: videoDetails.title,
-                channel: videoDetails.author.name,
-                seconds: videoDetails.lengthSeconds,
-                description: videoDetails.description,
-                image: videoDetails.thumbnails.slice(-1)[0].url,
-            },
-            buffer: buffer,
-            size: buffer.length,
-        };
-    } catch (error) {
-        throw error;
-    }
-};
