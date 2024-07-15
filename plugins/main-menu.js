@@ -31,7 +31,7 @@ const defaultMenu = {
 \t\t\t
 `.trimStart(),
   header: '┌─ 「  *`%category`*  」', 
-  body: '%cmd %islimit %isPremium\n',
+  body: '┃❏%cmd %islimit %isPremium\n',
   footer: '╰─────────────',
   after: ``,
 }
