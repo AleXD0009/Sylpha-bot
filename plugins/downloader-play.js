@@ -88,6 +88,5 @@ let handler = async (m, { conn, command, args, text, usedPrefix }) => {
 handler.help = ['play', 'play2', 'ytmp3'];
 handler.tags = ['dl'];
 handler.command = ['play', 'play2', 'ytmp3'];
-handler.register = true;
 
 export default handler;
