@@ -17,13 +17,13 @@ let ytres = result.videos;
     let { title, description, thumbnail, videoId, timestamp, views, ago, url } = vid;
   
   
-    let txt = "\t\t\t*`玖 YᴏᴜTᴜʙᴇ 玖`*\n\n";
-    txt += "> *`» Titulo :`*" + ` ${vid.title}\n`
-    txt += "> *`» Creado :`*" + ` ${vid.ago}\n`
-    txt += "> *`» Duracion :`*" + ` ${vid.timestamp}\n`
-    txt += "> *`» Visitas :`*" + ` ${vid.views.toLocaleString()}\n`
+        let txt = '    `𝐘𝐎𝐔𝐓𝐔𝐁𝐄 𝐃𝐋`\n\n';
+        txt += `> *Título* : _${vid.title}_\n`;
+        txt += `> *Creado* : _${vid.ago}_\n`
+        txt += `> *Duracion* : _${vid.timestamp}_\n`
+        txt += `> *Visitas : _${vid.views.toLocaleString()}_\n`
   
-    await conn.sendButtonMessages(m.chat, [
+    await conn.sendButton2(m.chat, [
         [txt, author, thumbnail, [
             ['Audio 🎶', `${usedPrefix}ytmp3 ${url}`],
             ['Video 🎥', `${usedPrefix}ytmp4 ${url}`],
