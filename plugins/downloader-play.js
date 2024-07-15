@@ -1,4 +1,38 @@
-import { ytmp3, ytmp4 } from '@ruhend/scraper';
+import yts from 'yt-search'
+
+let handler = async (m, { conn, command, text, usedPrefix }) => {
+	
+if (!text) { 
+    return conn.reply(m.chat, '*Ingresa el nombre de lo que quieres buscar*', m); 
+            }	
+    
+let res = await yts(text)
+let play = res.videos[0]
+if (!play) throw `✳️ Vídeo/Audio no encontrado`
+let { title, description, thumbnail, videoId, timestamp, views, ago, url } = play
+	//const url = 'https://www.youtube.com/watch?v=' + videoId
+
+let txt = '    `𝐘𝐎𝐔𝐓𝐔𝐁𝐄 𝐃𝐋`\n\n';
+    txt += `> *Título* : _${play.title}_\n`;
+    txt += `> *Creado* : _${play.ago}_\n`;
+    txt += `> *Duración* : _${play.timestamp}_\n`;
+    txt += `> *Visitas* : _${play.views.toLocaleString()}_\n`;
+    txt += `> *Link* : _https://www.youtube.com/watch?v=${play.videoId}_\n`;
+
+    
+ await conn.sendButton2(m.chat, txt, botname, thumbnail, [
+    ['Audio', `${usedPrefix}ytmp3 ${url}`],
+    ['Video', `${usedPrefix}ytmp4 ${url}`]
+  ], null, [['Canal', `${canal}`]], m)
+}
+handler.help = ['play']
+handler.tags = ['dl']
+handler.command = ['play', 'playvid']
+
+export default handler
+
+
+/*import { ytmp3, ytmp4 } from '@ruhend/scraper';
 import yts from 'yt-search';
 
 let handler = async (m, { conn, usedPrefix, text, args, command }) => {
