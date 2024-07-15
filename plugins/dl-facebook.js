@@ -5,7 +5,7 @@ let handler = async (m, { conn, args, usedPrefix, command }) => {
 
   try {
 await m.react('🕓'); 
-    const apiResponse = await fetch(`https://thepapusapifacebook.onrender.com/api/fbvideodownload?url=${args[0]}`);
+    const apiResponse = await fetch(`https://thepapusteam.koyeb.app/api/fbvideodownload?url=${args[0]}`);
     const responseData = await apiResponse.json();
     
     if (responseData.success) {
