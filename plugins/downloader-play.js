@@ -73,7 +73,7 @@ if (size.split('MB')[0] >= limit) return star.reply(m.chat, `El archivo pesa mas
 await conn.sendMessage(m.chat, { audio: { url: dl_url }, fileName: title + '.mp3', mimetype: 'audio/mp4' }, { quoted: m })
 await m.react('✅')
 } catch {
-await m.react('✖❌')
+await m.react('❌')
 }}}}}};
 
 handler.help = ['play', 'play2', 'ytmp3'];
