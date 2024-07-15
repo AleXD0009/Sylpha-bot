@@ -1,6 +1,6 @@
 let handler = async (m, { conn, text, mentionedJid }) => {
-    let user1 = mentionedJid[0] ? mentionedJid[0] : m.quoted ? m.quoted.sender.replace(/[^0-9]/g, '') + '@s.whatsapp.net' : false;
-    let user2 = mentionedJid[1] ? mentionedJid[1] : false;
+    let user1 = mentionedJid && mentionedJid[0] ? mentionedJid[0] : m.quoted ? m.quoted.sender.replace(/[^0-9]/g, '') + '@s.whatsapp.net' : false;
+    let user2 = mentionedJid && mentionedJid[1] ? mentionedJid[1] : false;
 
     if (!user1 || !user2) {
         return conn.reply(m.chat, 'Etiqueta dos usuarios o una etiqueta y una cita', m);
@@ -48,10 +48,13 @@ let handler = async (m, { conn, text, mentionedJid }) => {
     let result = pickRandom(["Pareja", "No"]);
     let reason = result === "Pareja" ? pickRandom(jodohReasons) : pickRandom(tidakReasons);
 
+    let user1Name = user1.split('@')[0];
+    let user2Name = user2.split('@')[0];
+
     conn.reply(m.chat, `
 ⬣───「 *BUSQUEDA DE PAREJA IDEAL* 」───⬣
-⬡ Nombre 1: @${user1.split`@`[0]}
-⬡ Nombre 2: @${user2.split`@`[0]}
+⬡ Nombre 1: @${user1Name}
+⬡ Nombre 2: @${user2Name}
 ⬡ Resultado: ${result}
 ⬡ Razón: ${reason}
 ⬣────────────────⬣
