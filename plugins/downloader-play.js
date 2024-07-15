@@ -60,7 +60,7 @@ let handler = async (m, { conn, command, text, args, usedPrefix }) => {
                     return conn.reply(m.chat, `El archivo pesa más de ${limit} MB, se canceló la descarga.`, m);
                 }
 
-                await conn.sendMessage(m.chat, { audio: { url: dl_url }, fileName: title + '.mp3', mimetype: 'audio/mp4' }, { quoted: m });
+                await conn.sendMessage(m.chat, { audio: { url: dl_url }, fileName: title + '.mp3', mimetype: 'audio/mp3' }, { quoted: m });
                 await m.react('✅');
             } catch (error) {
                 console.error(error);
