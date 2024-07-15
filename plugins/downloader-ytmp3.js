@@ -6,7 +6,6 @@ let handler = async (m, {
     args
 }) => {
     if (!args[0]) throw "[ Masukkan Url Youtube! ]"
-    await conn.reply(m.chat, wait, m)
     try {
 
         let Ytdl = await ytmp3(args[0])
