@@ -3,8 +3,9 @@ import yts from 'yt-search';
 import axios from 'axios';
 
 const handler = async (m, { text, conn, args, usedPrefix, command }) => {
-    if (!args[0]) return conn.reply(m.chat, '*`Ingresa el enlace del vídeo de Instagram junto al comando.`*', m);
-
+   if (!args || args.length === 0) {
+        return conn.reply(m.chat, '*`Ingresa el enlace del vídeo de  junto al comando.`*', m);
+    }
     let enviando = false; // Variable to control concurrent execution
     if (enviando) return; // Prevent concurrent execution
     enviando = true;
