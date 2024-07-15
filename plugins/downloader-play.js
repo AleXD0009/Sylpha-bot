@@ -1,6 +1,8 @@
-import { ytmp3v2 } from '@ruhend/scraper';
-import yts from 'yt-search';
-
+import fg from 'api-dylux'
+import yts from 'yt-search'
+import { youtubedl, youtubedlv2 } from '@bochilteam/scraper'
+import fetch from 'node-fetch' 
+let limit = 100
 let handler = async (m, { conn, command, text, usedPrefix }) => {
     if (command === 'play' || command === 'play2') {
         if (!text) {
@@ -36,28 +38,46 @@ await m.react('❌');
     }
 
     if (command === 'ytmp3') {
-        if (!text) {
-            return conn.reply(m.chat, '*Ingresa la URL de YouTube*', m);
-        }
+ if (!args || !args[0]) return conn.reply(m.chat, '`Ingresa el link de un video de youtube`', m)
+if (!args[0].match(/youtu/gi)) return conn.reply(m.chat, `Verifica que el enlace sea de YouTube.`, m)
+let q = '128kbps'
 
-        try {
-await m.react('🕒'); 
-            const { title, audio } = await ytmp3v2(text);
+await m.react('🕓')
+try {
+let v = args[0]
+let yt = await youtubedl(v).catch(async () => await youtubedlv2(v))
+let dl_url = await yt.audio[q].download()
+let title = await yt.title
+let size = await yt.audio[q].fileSizeH
+let thumbnail = await yt.thumbnail
 
-            let txt = '`Descarga de Audio desde YouTube`\n\n';
-            txt += `> *Título* : _${title}_\n`;
+if (size.split('MB')[0] >= limit) return star.reply(m.chat, `El archivo pesa mas de ${limit} MB, se canceló la Descarga.`, m, rcanal)
+await conn.sendMessage(m.chat, { audio: { url: dl_url }, fileName: title + '.mp3', mimetype: 'audio/mp4' }, { quoted: m })
+await m.react('✅')
+} catch {
+try {
+let yt = await fg.yta(args[0], q)
+let { title, dl_url, size } = yt 
+let vid = (await yts(text)).all[0]
+let { thumbnail, url } = vid
 
-await conn.reply(m.chat, txt)
-await conn.sendMessage(m.chat, { audio: { url: audio }, fileName: title + '.mp3', mimetype: 'audio/mp4' }, { quoted: m })
-await m.react('✅'); 
-        } catch {
-await m.react('❌'); 
-        }
-    }
-};
+if (size.split('MB')[0] >= limit) return star.reply(m.chat, `El archivo pesa mas de ${limit} MB, se canceló la Descarga.`, m, rcanal)
+await conn.sendMessage(m.chat, { audio: { url: dl_url }, fileName: title + '.mp3', mimetype: 'audio/mp4' }, { quoted: m })
+await m.react('✅')
+} catch {
+try {
+let yt = await fg.ytmp3(args[0], q)
+let { title, dl_url, size, thumb } = yt 
+
+if (size.split('MB')[0] >= limit) return star.reply(m.chat, `El archivo pesa mas de ${limit} MB, se canceló la Descarga.`, m, rcanal)
+await conn.sendMessage(m.chat, { audio: { url: dl_url }, fileName: title + '.mp3', mimetype: 'audio/mp4' }, { quoted: m })
+await m.react('✅')
+} catch {
+await m.react('✖❌')
+}}}}}};
 
 handler.help = ['play', 'play2', 'ytmp3'];
 handler.tags = ['dl'];
 handler.command = ['play', 'play2', 'ytmp3'];
 
-export default handler;
+export default handler
