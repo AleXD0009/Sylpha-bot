@@ -25,11 +25,11 @@
 # 📖 Características del bot 
 |  Funciones y comandos  |                                           Sip |
 | :---------------------------------------------: | :-----------: |
-| Crea stickers|✔️|
-| Bienvenida automática|✔️|
-| Modo Publico/Privado|✔️|
-| Descarga de música/videos|✔️|
-| Chat-Bot|✔️|
+| Crea stickers|✅|
+| Bienvenida automática|❌|
+| Modo Publico/Privado|✅|
+| Descarga de música/videos|✅|
+| Chat-Bot|⌛|
 | Más funciones en adelante|♻️|
 
 
