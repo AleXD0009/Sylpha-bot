@@ -1,5 +1,3 @@
-> `NOTA :` A las 20 estrellas los codigos ofuscados (encriptados) se desofuscaran (desencriptaran)
-
 <h1 align="center">♡ 𝚂𝚢𝚕𝚙𝚑𝚊-𝙼𝙳 ♡</h1>
 <br>
 <div align="center">
