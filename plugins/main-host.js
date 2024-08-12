@@ -9,7 +9,7 @@ let txt =
 *\`[ Información del Host ]\`*
 
 *[ DASH ]* 
-• https://dashborad.starlights.uk
+• https://dash.starlights.uk
 
 *[ PANEL ]* 
 • https://panel.starlights.uk
@@ -27,7 +27,7 @@ await conn.sendMessage(m.chat, {
       body: ``,
       previewType: "PHOTO",
       thumbnailUrl: 'https://telegra.ph/file/db0ec95ffa17dc003fcb0.jpg',
-      sourceUrl: 'https://dashborad.starlights.uk'
+      sourceUrl: 'https://dash.starlights.uk'
     },
   }
 }, { quoted: fkontak });
