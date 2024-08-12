@@ -11,7 +11,7 @@ if (!play) return conn.reply(m.chat, `No se encontraron resultados`, m)
 
 let { title, thumbnail, ago, timestamp, views, videoId, url } = play;
 
-let txt = '*`P L A Y - D L`*\n\n';
+let txt = '';
 txt += `> _Título_ : *${title || 'x'}*\n`;
 txt += `> _Creado_ : *${ago || 'x'}*\n`;
 txt += `> _Duración_ : *${timestamp || 'x'}*\n`;
