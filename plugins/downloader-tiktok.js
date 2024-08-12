@@ -7,15 +7,15 @@ try {
 await m.react('🕓'); 
 let { title, author, username, published, like, comment, share, views, bookmark, video, cover, duration, music, profilePicture } = await ttdl(args[0]);
 
-let txt = '*`T I K T O K - D L`*\n\n';
-txt += `> _Título_ : *${title || 'X'}*\n`;
-txt += `> _Autor_ : *${author || 'X'}*\n`;
-txt += `> _Duración_ : *${duration || 'X'}*\n`;
-txt += `> _Vistas_ : *${views || 'X'}*\n`;
-txt += `> _Likes_ : *${like || 'X'}*\n`; 
-txt += `> _Comentarios_ : *${comment || 'X'}*\n`;
-txt += `> _Compartidos_ : *${share || 'X'}*\n`;
-txt += `> _Publicado_ : *${published || 'X'}*\n`;
+let txt = '';
+txt += `> _Título_ : *${title || '❌'}*\n`;
+txt += `> _Autor_ : *${author || '❌'}*\n`;
+txt += `> _Duración_ : *${duration || '❌'}*\n`;
+txt += `> _Vistas_ : *${views || '❌'}*\n`;
+txt += `> _Likes_ : *${like || '❌'}*\n`; 
+txt += `> _Comentarios_ : *${comment || '❌'}*\n`;
+txt += `> _Compartidos_ : *${share || '❌'}*\n`;
+txt += `> _Publicado_ : *${published || '❌'}*\n`;
 
 await conn.sendFile(m.chat, video, 'tiktok.mp4', txt, m, null, rcanal);
 await m.react('✅'); 
@@ -25,6 +25,6 @@ await m.react('❌');
 
 handler.help = ['tiktok *<link>*']
 handler.tags = ['dl'] 
-handler.command = /^(tiktok|ttdl|tiktokdl|tiktoknowm)$/i;
+handler.command = ['tiktok', 'tt']
 
 export default handler;
