@@ -10,4 +10,5 @@ newsletterJid: id_canal,
 serverMessageId: 100,
 newsletterName: name_canal,
 }}}
+  
 }
