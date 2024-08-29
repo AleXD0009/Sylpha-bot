@@ -12,26 +12,22 @@ let txt =
 • https://dash.starlights.uk
 
 *[ PANEL ]* 
-• https://panel.starlights.uk
+• https://cloud.starlights.uk
 
 `
-await conn.sendMessage(m.chat, {
-  text: txt,
-  contextInfo: {
-    forwardingScore: 1,
-    isForwarded: false,
-    externalAdReply: {
-      showAdAttribution: true,
-      containsAutoReply: true,
-      title: `CLOUD STARLIGHTS`,
-      body: ``,
-      previewType: "PHOTO",
-      thumbnailUrl: 'https://telegra.ph/file/db0ec95ffa17dc003fcb0.jpg',
-      sourceUrl: 'https://dash.starlights.uk'
-    },
-  }
-}, { quoted: fkontak });
-
+await conn.sendMessage(m.chat, { text: txt,
+contextInfo: {
+forwardingScore: 1,
+isForwarded: false,
+externalAdReply: {
+showAdAttribution: true,
+containsAutoReply: true,
+title: `CLOUD STARLIGHTS`,
+body: ``,
+previewType: "PHOTO",
+thumbnailUrl: 'https://telegra.ph/file/db0ec95ffa17dc003fcb0.jpg',
+sourceUrl: 'https://cloud.starlights.uk'
+}}}, { quoted: fkontak });
 }
 
 handler.help = ['host'] 
