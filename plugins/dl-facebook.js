@@ -15,7 +15,7 @@ let video = data.find(v => v.resolution.includes('HD')) || data[0];
 if (video) {
 const videoBuffer = await fetch(video.url).then(res => res.buffer());
 
-await conn.sendMessage( m.chat, { video: videoBuffer, mimetype: 'video/mp4', fileName: 'video.mp4', caption: caption, mentions: [m.sender], },{ quoted: m }
+await conn.sendMessage( m.chat, { video: videoBuffer, mimetype: 'video/mp4', fileName: 'video.mp4', caption: caption, mentions: [m.sender], },{ quoted: m });
 await m.react('✅'); 
 );
 } else {
