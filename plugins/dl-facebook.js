@@ -1,28 +1,33 @@
+import { snapsave } from '@bochilteam/scraper';
 import fetch from 'node-fetch';
 
-let handler = async (m, { conn, args, usedPrefix, command }) => {
-  if (!args[0]) return m.reply('*`Ingresa un enlace de facebook`*');
+let handler = async (m, { conn, args }) => {
+if (!args[0]) return m.reply('*Ingresa un enlace de facebook*');
 
-  try {
+try {
 await m.react('🕓'); 
-    const apiResponse = await fetch(`https://thepapusteam.koyeb.app/api/fbvideodownload?url=${args[0]}`);
-    const responseData = await apiResponse.json();
-    
-    if (responseData.success) {
-      const { title, links } = responseData;
-      let txt = '    `Facebook downloader`\n\n';
-      txt += `> *Titulo* : _${title}_\n`;
+const data = await snapsave(args[0]);
 
-      await conn.sendMessage(m.chat, { video: { url: links[0].link }, caption: txt }, { quoted: m });
+if (!Array.isArray(data) || data.length === 0) return m.reply('*No se pudo descargar el video :/*');
+
+let video = data.find(v => v.resolution.includes('HD')) || data[0];
+
+if (video) {
+const videoBuffer = await fetch(video.url).then(res => res.buffer());
+
+await conn.sendMessage( m.chat, { video: videoBuffer, mimetype: 'video/mp4', fileName: 'video.mp4', caption: caption, mentions: [m.sender], },{ quoted: m }
 await m.react('✅'); 
-    } else {
-    }
-  } catch {
+);
+} else {
 await m.react('❌'); 
-  }
+}
+} catch {
+await m.react('❌'); 
+}
 }
 
 handler.help = ['facebook *<link>*'];
 handler.tags = ['dl'];
 handler.command = ['fb', 'facebook', 'FB', 'FACEBOOK'];
+
 export default handler;
